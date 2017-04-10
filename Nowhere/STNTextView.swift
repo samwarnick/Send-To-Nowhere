@@ -14,7 +14,7 @@ class STNTextView: UITextView {
 
     override var contentSize: CGSize {
         didSet {
-            var topCorrection = (bounds.size.height - keyboardOffset - contentSize.height * zoomScale) / 2
+            var topCorrection = (bounds.size.height - keyboardOffset - contentSize.height) / 2
             
             topCorrection = max(20, topCorrection)
             contentInset.top = topCorrection
@@ -23,8 +23,7 @@ class STNTextView: UITextView {
     
     func forceCentering(withKeyboardOffset newKeyboardOffset: CGFloat) {
         keyboardOffset = newKeyboardOffset
-        let fakeContentSize = contentSize
-        contentSize = fakeContentSize
+        contentSize = CGSize(width: contentSize.width, height: contentSize.height)
     }
 
 }

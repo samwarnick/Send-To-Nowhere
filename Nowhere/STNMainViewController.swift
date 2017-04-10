@@ -48,7 +48,7 @@ class STNMainViewController: UIViewController {
     func keyboardWillHide(notification: NSNotification) {
         if (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue != nil {
             if keyboardIsUp {
-                textView.contentInset.bottom = 0
+                textView.contentInset.bottom = 120
                 textView.forceCentering(withKeyboardOffset: 0)
                 
                 keyboardIsUp = !keyboardIsUp
@@ -76,6 +76,7 @@ class STNMainViewController: UIViewController {
         textView.showsVerticalScrollIndicator = false
         textView.tintColor = UIColor.stnRichElectricBlue
         textView.returnKeyType = .done
+        textView.contentInset.bottom = 120
         
         // buttons
         
