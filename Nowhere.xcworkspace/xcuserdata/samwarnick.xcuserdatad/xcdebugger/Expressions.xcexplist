@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "STNTextView.contentSize.didset:STNTextView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "bounds">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "STNAboutPageViewController.pageViewController(UIPageViewController, viewControllerBefore : UIViewController) -&gt; UIViewController?:STNAboutPageViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -16,6 +24,15 @@
       <ContextState
          contextName = "STNMainViewController.keyboardWillHide(notification : NSNotification) -&gt; ():STNMainViewController.swift">
          <PersistentStrings>
+            <PersistentString
+               value = "view.frame.height">
+            </PersistentString>
+            <PersistentString
+               value = "textView.frame">
+            </PersistentString>
+            <PersistentString
+               value = "textView.contentSize.height">
+            </PersistentString>
             <PersistentString
                value = "textView.contentInset.top">
             </PersistentString>

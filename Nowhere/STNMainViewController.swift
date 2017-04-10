@@ -37,30 +37,20 @@ class STNMainViewController: UIViewController {
     func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if !keyboardIsUp {
-                UIView.animate(withDuration: 0.25) {
-                    self.textView.snp.updateConstraints { (make) -> Void in
-                        make.bottom.equalTo(self.view).offset(-10 - keyboardSize.height)
-                    }
-                    if (self.textView.contentSize.height < keyboardSize.height) {
-                        self.textView.contentInset.top = self.textView.contentInset.top - keyboardSize.height / 2
-                    }
-                }
+                textView.contentInset.bottom = keyboardSize.height
+                textView.forceCentering(withKeyboardOffset: keyboardSize.height)
+                
                 keyboardIsUp = !keyboardIsUp
             }
         }
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+        if (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue != nil {
             if keyboardIsUp {
-                UIView.animate(withDuration: 0.25) {
-                    self.textView.snp.updateConstraints { (make) -> Void in
-                        make.bottom.equalTo(self.view).offset(0)
-                    }
-                    if (self.textView.contentSize.height < keyboardSize.height) {
-                        self.textView.contentInset.top = self.textView.contentInset.top + keyboardSize.height / 2
-                    }
-                }
+                textView.contentInset.bottom = 0
+                textView.forceCentering(withKeyboardOffset: 0)
+                
                 keyboardIsUp = !keyboardIsUp
             }
         }
@@ -85,6 +75,8 @@ class STNMainViewController: UIViewController {
         textView.textAlignment = .center
         textView.showsVerticalScrollIndicator = false
         textView.tintColor = UIColor.stnRichElectricBlue
+        textView.returnKeyType = .done
+        
         // buttons
         
         sendButton.setTitle("Send To Nowhere", for: .normal)
@@ -111,16 +103,16 @@ class STNMainViewController: UIViewController {
         
         // keyboard toolbar
         
-        let toolBar = UIToolbar()
-        toolBar.sizeToFit()
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(STNMainViewController.didPressDone))
-        doneButton.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin), NSForegroundColorAttributeName: UIColor.stnRichElectricBlue], for: .normal)
-//        let doneButton = UIBarButtonItem(image: UIImage(named: "exit"), style: .done, target: self, action: #selector(STNMainViewController.didPressDone))
-        toolBar.setItems([flexibleSpace, doneButton], animated: true)
-        toolBar.barTintColor = UIColor.white
-        toolBar.tintColor = UIColor.stnRichElectricBlue
-        textView.inputAccessoryView = toolBar
+//        let toolBar = UIToolbar()
+//        toolBar.sizeToFit()
+//        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+//        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(STNMainViewController.didPressDone))
+//        doneButton.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin), NSForegroundColorAttributeName: UIColor.stnRichElectricBlue], for: .normal)
+////        let doneButton = UIBarButtonItem(image: UIImage(named: "exit"), style: .done, target: self, action: #selector(STNMainViewController.didPressDone))
+//        toolBar.setItems([flexibleSpace, doneButton], animated: true)
+//        toolBar.barTintColor = UIColor.white
+//        toolBar.tintColor = UIColor.stnRichElectricBlue
+//        textView.inputAccessoryView = toolBar
         
         // status bar background
         
@@ -171,6 +163,10 @@ class STNMainViewController: UIViewController {
 
 extension STNMainViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
         
         let currentText = textView.text as NSString?
         let updatedText = currentText?.replacingCharacters(in: range, with: text)
