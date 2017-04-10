@@ -1,0 +1,6 @@
+framework module Pods_NowhereUITests {
+  umbrella header "Pods-NowhereUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

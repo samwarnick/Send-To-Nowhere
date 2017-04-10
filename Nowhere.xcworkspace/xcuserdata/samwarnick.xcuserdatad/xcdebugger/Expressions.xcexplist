@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "STNAboutPageViewController.pageViewController(UIPageViewController, viewControllerBefore : UIViewController) -&gt; UIViewController?:STNAboutPageViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "orderedViewControllers.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "STNButton.draw(CGRect) -&gt; ():STNButton.swift">
+      </ContextState>
+      <ContextState
+         contextName = "STNMainViewController.keyboardWillHide(notification : NSNotification) -&gt; ():STNMainViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "textView.contentInset.top">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "STNMainViewController.keyboardWillShow(notification : NSNotification) -&gt; ():STNMainViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "textView.contentInset.top">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
