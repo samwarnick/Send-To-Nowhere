@@ -37,7 +37,7 @@ class STNMainViewController: UIViewController {
     func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if !keyboardIsUp {
-                textView.contentInset.bottom = keyboardSize.height
+                textView.contentInset.bottom = keyboardSize.height + 10
                 textView.forceCentering(withKeyboardOffset: keyboardSize.height)
                 
                 keyboardIsUp = !keyboardIsUp
@@ -101,19 +101,6 @@ class STNMainViewController: UIViewController {
             make.top.equalTo(view).offset(30)
             make.right.equalTo(view).offset(-15)
         }
-        
-        // keyboard toolbar
-        
-//        let toolBar = UIToolbar()
-//        toolBar.sizeToFit()
-//        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-//        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(STNMainViewController.didPressDone))
-//        doneButton.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin), NSForegroundColorAttributeName: UIColor.stnRichElectricBlue], for: .normal)
-////        let doneButton = UIBarButtonItem(image: UIImage(named: "exit"), style: .done, target: self, action: #selector(STNMainViewController.didPressDone))
-//        toolBar.setItems([flexibleSpace, doneButton], animated: true)
-//        toolBar.barTintColor = UIColor.white
-//        toolBar.tintColor = UIColor.stnRichElectricBlue
-//        textView.inputAccessoryView = toolBar
         
         // status bar background
         
