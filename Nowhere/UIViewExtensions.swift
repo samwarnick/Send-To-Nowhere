@@ -13,19 +13,19 @@ extension UIView {
         applyGradient(colors, locations: nil, startPoint: nil, endPoint: nil)
     }
     
-    func applyGradient(_ colors: [UIColor], locations: [NSNumber]?, startPoint: CGPoint?, endPoint: CGPoint?) -> Void {
+    func applyGradient(_ colors: [UIColor], locations: [NSNumber]?, startPoint: CGPoint?, endPoint: CGPoint?, radius: CGFloat = 0.0) -> Void {
         let gradient = CAGradientLayer()
         gradient.frame = bounds
         gradient.colors = colors.map { $0.cgColor }
         gradient.locations = locations
         gradient.startPoint = startPoint ?? CGPoint(x: 0.5, y: 0.0)
         gradient.endPoint = endPoint ?? CGPoint(x: 0.5, y: 1.0)
+        gradient.cornerRadius = radius
         if let oldGradient = layer.sublayers?[0] as? CAGradientLayer {
             layer.replaceSublayer(oldGradient, with: gradient)
         } else {
             layer.insertSublayer(gradient, below: nil)
         }
-        
     }
     
     func applyBottomBorder(withColor color: UIColor) {

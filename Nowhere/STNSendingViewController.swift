@@ -84,8 +84,7 @@ class STNSendingViewController: UIViewController {
             self.message.isHidden = false
             self.doneButton.isHidden = false
             self.progressIndicator.fadeTransition(duration: 0.3)
-            self.doneButton.fadeTransition(duration: 0.2)
-            self.doneButton.shadowLayer.fadeTransition(duration: 0.3)
+            self.doneButton.fadeTransition(duration: 0.3)
             self.message.fadeTransition(duration: 0.3)
         }
     }
