@@ -38,19 +38,13 @@ class STNCreditsViewController: UIViewController {
         let contactLabel = UILabel()
         contactLabel.defaultStlye()
         contactLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
-        contactLabel.text = "Please get in touch on Twitter with any feedback"
+        contactLabel.text = "Please get in touch on Twitter or my website with any feedback"
 
         let myDetailsStackView = UIStackView(arrangedSubviews: [authorLabel, websiteButton, twitterButton, contactLabel])
         myDetailsStackView.axis = .vertical
         myDetailsStackView.alignment = .center
-
-        myDetailsStackView.sizeToFit()
-
-        myDetailsStackView.axis = .vertical
-        myDetailsStackView.alignment = .center
         myDetailsStackView.distribution = .equalSpacing
         myDetailsStackView.spacing = 8
-
         myDetailsStackView.sizeToFit()
 
         view.addSubview(myDetailsStackView)
@@ -67,11 +61,11 @@ class STNCreditsViewController: UIViewController {
     // MARK: - Actions
     
     func didPressWebisteButton(sender: UIButton) {
-        UIApplication.shared.open(URL(string: "http://samwarnick.com")!, options: [UIApplicationOpenURLOptionUniversalLinksOnly: false], completionHandler: nil)
+        UIApplication.shared.open(URL(string: "https://samwarnick.com/tag/send-to-nowhere/")!, options: [UIApplicationOpenURLOptionUniversalLinksOnly: false], completionHandler: nil)
     }
     
     func didPressTwitterButton(sender: UIButton) {
-        UIApplication.shared.open(URL(string: "http://twitter.com/samwarnick")!, options: [UIApplicationOpenURLOptionUniversalLinksOnly: false], completionHandler: nil)
+        UIApplication.shared.open(URL(string: "https://twitter.com/samwarnick")!, options: [UIApplicationOpenURLOptionUniversalLinksOnly: false], completionHandler: nil)
     }
 
 }
