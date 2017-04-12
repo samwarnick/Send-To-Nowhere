@@ -121,6 +121,7 @@ class STNMainViewController: UIViewController {
         textView.textColor = UIColor.lightGray
         
         textView.selectedTextRange = self.textView.textRange(from: self.textView.beginningOfDocument, to: self.textView.beginningOfDocument)
+        textView.canPerformActions = false
         
         sendButton.isHidden = true
     }
@@ -166,6 +167,7 @@ extension STNMainViewController: UITextViewDelegate {
         } else if textView.textColor == UIColor.lightGray && !text.isEmpty {
             textView.text = nil
             textView.textColor = UIColor.black
+            (textView as! STNTextView).canPerformActions = true
             
             sendButton.isHidden = false
         }
