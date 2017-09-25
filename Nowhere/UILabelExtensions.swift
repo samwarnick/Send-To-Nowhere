@@ -11,7 +11,7 @@ import UIKit
 extension UILabel {
     func defaultStlye() {
         textAlignment = .center
-        font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin)
+        font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.thin)
         numberOfLines = 0
     }
 }

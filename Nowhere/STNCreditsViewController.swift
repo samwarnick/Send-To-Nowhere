@@ -37,7 +37,7 @@ class STNCreditsViewController: UIViewController {
         
         let contactLabel = UILabel()
         contactLabel.defaultStlye()
-        contactLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
+        contactLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
         contactLabel.text = "Please get in touch on Twitter or my website with any feedback"
 
         let myDetailsStackView = UIStackView(arrangedSubviews: [authorLabel, websiteButton, twitterButton, contactLabel])
@@ -60,11 +60,11 @@ class STNCreditsViewController: UIViewController {
     
     // MARK: - Actions
     
-    func didPressWebisteButton(sender: UIButton) {
+    @objc func didPressWebisteButton(sender: UIButton) {
         UIApplication.shared.open(URL(string: "https://samwarnick.com/tag/send-to-nowhere/")!, options: [UIApplicationOpenURLOptionUniversalLinksOnly: false], completionHandler: nil)
     }
     
-    func didPressTwitterButton(sender: UIButton) {
+    @objc func didPressTwitterButton(sender: UIButton) {
         UIApplication.shared.open(URL(string: "https://twitter.com/samwarnick")!, options: [UIApplicationOpenURLOptionUniversalLinksOnly: false], completionHandler: nil)
     }
 

@@ -49,7 +49,7 @@ class STNAboutPageViewController: UIPageViewController {
     
     // MARK: - Actions
     
-    func didPressDoneButton(sender: UIButton) {
+    @objc func didPressDoneButton(sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
 }

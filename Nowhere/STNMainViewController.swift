@@ -34,7 +34,7 @@ class STNMainViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(STNMainViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    func keyboardWillShow(notification: NSNotification) {
+    @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if !keyboardIsUp {
                 textView.contentInset.bottom = keyboardSize.height + 10
@@ -45,7 +45,7 @@ class STNMainViewController: UIViewController {
         }
     }
     
-    func keyboardWillHide(notification: NSNotification) {
+    @objc func keyboardWillHide(notification: NSNotification) {
         if (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue != nil {
             if keyboardIsUp {
                 textView.contentInset.bottom = 120
@@ -70,7 +70,7 @@ class STNMainViewController: UIViewController {
             make.right.equalTo(view).offset(-20)
         }
         
-        textView.font = UIFont.systemFont(ofSize: 36, weight: UIFontWeightThin)
+        textView.font = UIFont.systemFont(ofSize: 36, weight: UIFont.Weight.thin)
         textView.keyboardDismissMode = .interactive
         textView.textAlignment = .center
         textView.showsVerticalScrollIndicator = false
@@ -132,16 +132,16 @@ class STNMainViewController: UIViewController {
         textView.endEditing(true)
     }
     
-    func didPressSendToNowhereButton(sender: UIButton) {
+    @objc func didPressSendToNowhereButton(sender: UIButton) {
         let nextViewController = STNSendingViewController()
         nextViewController.modalPresentationStyle = .custom
         nextViewController.modalTransitionStyle = .crossDissolve
-        present(nextViewController, animated: true, completion: { _ in
+        present(nextViewController, animated: true) {
             self.resetTextView()
-        })
+        }
     }
     
-    func didPressAboutButton(sender: UIButton) {
+    @objc func didPressAboutButton(sender: UIButton) {
         let nextViewController = STNAboutPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         nextViewController.modalPresentationStyle = .custom
         nextViewController.modalTransitionStyle = .crossDissolve

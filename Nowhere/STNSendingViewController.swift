@@ -38,7 +38,7 @@ class STNSendingViewController: UIViewController {
         view.addSubview(message)
         
         message.text = "Sent nowhere."
-        message.font = UIFont.systemFont(ofSize: 36, weight: UIFontWeightThin)
+        message.font = UIFont.systemFont(ofSize: 36, weight: UIFont.Weight.thin)
         message.textAlignment = .center
         message.numberOfLines = 0
         message.isHidden = true
@@ -63,11 +63,11 @@ class STNSendingViewController: UIViewController {
         
     }
     
-    func startProgress() {
+    @objc func startProgress() {
         Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(STNSendingViewController.progress), userInfo: nil, repeats: true)
     }
     
-    func progress(timer: Timer) {
+    @objc func progress(timer: Timer) {
         let currentProgress = progressIndicator.progress
         let additionalProgress = CGFloat(arc4random_uniform(20)) / 100.0
         let newProgress = min(1, currentProgress + additionalProgress)
@@ -78,7 +78,7 @@ class STNSendingViewController: UIViewController {
         progressIndicator.progress = newProgress
     }
     
-    func progressDone() {
+    @objc func progressDone() {
         UIView.animate(withDuration: 0.3) {
             self.progressIndicator.isHidden = true
             self.message.isHidden = false
@@ -91,7 +91,7 @@ class STNSendingViewController: UIViewController {
     
     // MARK: - Actions
     
-    func didPressDoneButton(sender: UIButton) {
+    @objc func didPressDoneButton(sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
 }
