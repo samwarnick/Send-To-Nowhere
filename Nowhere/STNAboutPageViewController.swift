@@ -16,6 +16,8 @@ class STNAboutPageViewController: UIPageViewController {
         return [STNAboutViewController(), STNCreditsViewController()]
     }()
     
+    var pageControl = UIPageControl()
+    
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -36,13 +38,27 @@ class STNAboutPageViewController: UIPageViewController {
         view.addSubview(doneButton)
 
         doneButton.snp.makeConstraints{ (make) -> Void in
-            make.top.equalTo(view).offset(30)
+            if #available(iOS 11, *) {
+                make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(14)
+            } else {
+                make.top.equalTo(view).offset(30)
+            }
             make.right.equalTo(view).offset(-15)
         }
         
-        let pageControlAppearance = UIPageControl.appearance(whenContainedInInstancesOf: [STNAboutPageViewController.self])
-        pageControlAppearance.currentPageIndicatorTintColor = UIColor.stnRichElectricBlue
-        pageControlAppearance.pageIndicatorTintColor = UIColor.stnColumbiaBlue
+        pageControl = UIPageControl(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        pageControl.numberOfPages = orderedViewControllers.count
+        pageControl.currentPage = 0
+        pageControl.pageIndicatorTintColor = UIColor.stnColumbiaBlue
+        pageControl.currentPageIndicatorTintColor = UIColor.stnRichElectricBlue
+        view.addSubview(pageControl)
+        
+        pageControl.snp.makeConstraints{ (make) -> Void in
+            if #available(iOS 11, *) {
+                make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            }
+            make.centerX.equalTo(view)
+        }
         
         view.backgroundColor = UIColor.white
     }
@@ -63,6 +79,8 @@ extension STNAboutPageViewController: UIPageViewControllerDataSource {
             return nil
         }
         
+        pageControl.currentPage = viewControllerIndex
+        
         let previousIndex = viewControllerIndex - 1
         
         if previousIndex < 0 {
@@ -77,6 +95,8 @@ extension STNAboutPageViewController: UIPageViewControllerDataSource {
             return nil
         }
         
+        pageControl.currentPage = viewControllerIndex
+        
         let nextIndex = viewControllerIndex + 1
 
         if nextIndex > orderedViewControllers.count - 1 {
@@ -84,13 +104,5 @@ extension STNAboutPageViewController: UIPageViewControllerDataSource {
         }
         
         return orderedViewControllers[nextIndex]
-    }
-    
-    func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return orderedViewControllers.count
-    }
-    
-    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        return 0
     }
 }

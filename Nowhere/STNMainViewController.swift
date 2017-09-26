@@ -98,7 +98,11 @@ class STNMainViewController: UIViewController {
         view.addSubview(aboutButton)
         
         aboutButton.snp.makeConstraints{ (make) -> Void in
-            make.top.equalTo(view).offset(30)
+            if #available(iOS 11, *) {
+                make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(14)
+            } else {
+                make.top.equalTo(view).offset(30)
+            }
             make.right.equalTo(view).offset(-15)
         }
         
