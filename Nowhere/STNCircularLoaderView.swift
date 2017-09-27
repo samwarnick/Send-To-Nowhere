@@ -66,4 +66,9 @@ class STNCircularLoaderView: UIView {
         circlePathLayer.frame = bounds
         circlePathLayer.path = circlePath().cgPath
     }
+    
+    func setColor(_ color: UIColor) {
+        circleColor = color
+        configure()
+    }
 }

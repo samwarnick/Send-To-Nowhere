@@ -13,7 +13,9 @@ class STNSendingViewController: UIViewController {
 
     // MARK: - Properties
     
-    let progressIndicator = STNCircularLoaderView()
+    private let theme = AppState.sharedInstance.currentTheme
+    
+    var progressIndicator = STNCircularLoaderView()
     let message = UILabel()
     let doneButton = STNButton()
     
@@ -29,7 +31,7 @@ class STNSendingViewController: UIViewController {
     func configureViews() {
         
         view.addSubview(progressIndicator)
-        
+        progressIndicator.setColor(theme.secondary)
         progressIndicator.snp.makeConstraints { (make) -> Void in
             make.centerX.equalTo(view)
             make.centerY.equalTo(view)
@@ -38,6 +40,7 @@ class STNSendingViewController: UIViewController {
         view.addSubview(message)
         
         message.text = "Sent nowhere."
+        message.textColor = theme.text
         message.font = UIFont.systemFont(ofSize: 36, weight: UIFont.Weight.thin)
         message.textAlignment = .center
         message.numberOfLines = 0
@@ -59,8 +62,7 @@ class STNSendingViewController: UIViewController {
             make.bottom.equalTo(view).offset(-60)
         }
         
-        view.backgroundColor = UIColor.white
-        
+        view.backgroundColor = theme.primary
     }
     
     @objc func startProgress() {

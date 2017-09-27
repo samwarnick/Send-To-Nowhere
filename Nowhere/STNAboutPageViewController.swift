@@ -12,9 +12,11 @@ class STNAboutPageViewController: UIPageViewController {
     
     // MARK: - Properties
     
-    let orderedViewControllers: [UIViewController] = {
-        return [STNAboutViewController(), STNCreditsViewController()]
-    }()
+    private let aboutViewController = STNAboutViewController()
+    private let creditsViewController = STNCreditsViewController()
+    private var orderedViewControllers: [UIViewController] = []
+    private var theme = AppState.sharedInstance.currentTheme
+    private let doneButton = UIButton(type: .system)
     
     var pageControl = UIPageControl()
     
@@ -24,33 +26,36 @@ class STNAboutPageViewController: UIPageViewController {
         super.viewDidLoad()
 
         dataSource = self
+        orderedViewControllers = [aboutViewController, creditsViewController]
         setViewControllers([orderedViewControllers.first!], direction: .forward, animated: true, completion: nil)
         
         configureViews()
     }
 
     func configureViews() {
-        let doneButton = UIButton(type: .system)
+        
+        theme = AppState.sharedInstance.currentTheme
+        
         doneButton.setImage(UIImage(named: "exit"), for: .normal)
-        doneButton.tintColor = UIColor.stnRichElectricBlue
+        doneButton.tintColor = theme.secondary
         doneButton.addTarget(self, action: #selector(STNAboutPageViewController.didPressDoneButton), for: .touchUpInside)
 
         view.addSubview(doneButton)
 
         doneButton.snp.makeConstraints{ (make) -> Void in
             if #available(iOS 11, *) {
-                make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(14)
+                make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
             } else {
                 make.top.equalTo(view).offset(30)
             }
-            make.right.equalTo(view).offset(-15)
+            make.right.equalTo(view).offset(-20)
         }
         
         pageControl = UIPageControl(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         pageControl.numberOfPages = orderedViewControllers.count
         pageControl.currentPage = 0
         pageControl.pageIndicatorTintColor = UIColor.stnColumbiaBlue
-        pageControl.currentPageIndicatorTintColor = UIColor.stnRichElectricBlue
+        pageControl.currentPageIndicatorTintColor = theme.secondary
         view.addSubview(pageControl)
         
         pageControl.snp.makeConstraints{ (make) -> Void in
@@ -60,7 +65,17 @@ class STNAboutPageViewController: UIPageViewController {
             make.centerX.equalTo(view)
         }
         
-        view.backgroundColor = UIColor.white
+        view.fadeTransition(duration: 0.25)
+        view.backgroundColor = theme.primary
+    }
+    
+    func refreshViews() {
+        configureViews()
+        aboutViewController.configureViews()
+        creditsViewController.configureViews()
+        if let parentController = presentingViewController as? STNMainViewController {
+            parentController.configureViews()
+        }
     }
     
     // MARK: - Actions

@@ -19,24 +19,26 @@ class STNCreditsViewController: UIViewController {
     }
     
     func configureViews() {
+        let theme = AppState.sharedInstance.currentTheme
+        
         let authorLabel = UILabel()
-        authorLabel.defaultStlye()
+        authorLabel.defaultStlye(color: theme.text)
         authorLabel.text = "Created by Sam Warnick"
 
         let websiteButton = UIButton(type: .system)
-        websiteButton.defaultStlye()
+        websiteButton.defaultStlye(color: theme.other)
         websiteButton.setTitle("samwarnick.com", for: .normal)
         websiteButton.addTarget(self, action: #selector(STNCreditsViewController.didPressWebisteButton), for: .touchUpInside)
         websiteButton.sizeToFit()
 
         let twitterButton = UIButton(type: .system)
-        twitterButton.defaultStlye()
+        twitterButton.defaultStlye(color: theme.other)
         twitterButton.setTitle("@samwarnick", for: .normal)
         twitterButton.addTarget(self, action: #selector(STNCreditsViewController.didPressTwitterButton), for: .touchUpInside)
         twitterButton.sizeToFit()
         
         let contactLabel = UILabel()
-        contactLabel.defaultStlye()
+        contactLabel.defaultStlye(color: theme.text)
         contactLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
         contactLabel.text = "Please get in touch on Twitter or my website with any feedback"
 
@@ -55,13 +57,13 @@ class STNCreditsViewController: UIViewController {
             make.right.equalTo(view).offset(-40)
         }
         
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = theme.primary
     }
     
     // MARK: - Actions
     
     @objc func didPressWebisteButton(sender: UIButton) {
-        UIApplication.shared.open(URL(string: "https://samwarnick.com/tag/send-to-nowhere/")!, options: [UIApplicationOpenURLOptionUniversalLinksOnly: false], completionHandler: nil)
+        UIApplication.shared.open(URL(string: "https://samwarnick.com")!, options: [UIApplicationOpenURLOptionUniversalLinksOnly: false], completionHandler: nil)
     }
     
     @objc func didPressTwitterButton(sender: UIButton) {
