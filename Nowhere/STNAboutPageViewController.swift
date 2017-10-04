@@ -45,10 +45,11 @@ class STNAboutPageViewController: UIPageViewController {
         doneButton.snp.makeConstraints{ (make) -> Void in
             if #available(iOS 11, *) {
                 make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
+                make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
             } else {
                 make.top.equalTo(view).offset(30)
+                make.right.equalTo(view).offset(-20)
             }
-            make.right.equalTo(view).offset(-20)
         }
         
         pageControl = UIPageControl(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))

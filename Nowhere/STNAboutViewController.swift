@@ -63,11 +63,13 @@ class STNAboutViewController: UIViewController {
         aboutStackView.snp.makeConstraints { (make) -> Void in
             if #available(iOS 11, *) {
                 make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(80)
+                make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(40)
+                make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-40)
             } else {
                 make.top.equalTo(view).offset(96)
+                make.left.equalTo(view).offset(40)
+                make.right.equalTo(view).offset(-40)
             }
-            make.left.equalTo(view).offset(40)
-            make.right.equalTo(view).offset(-40)
         }
         
         alternateThemeToggle.onTintColor = theme.secondary
@@ -90,11 +92,13 @@ class STNAboutViewController: UIViewController {
         alternateThemeStack.snp.makeConstraints { (make) -> Void in
             if #available(iOS 11, *) {
                 make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-60)
+                make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(40)
+                make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-40)
             } else {
                 make.top.equalTo(view).offset(-80)
+                make.left.equalTo(view).offset(40)
+                make.right.equalTo(view).offset(-40)
             }
-            make.left.equalTo(view).offset(40)
-            make.right.equalTo(view).offset(-40)
         }
         
         view.backgroundColor = theme.primary

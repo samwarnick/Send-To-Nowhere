@@ -107,10 +107,11 @@ class STNMainViewController: UIViewController {
         shareButton.snp.makeConstraints{ (make) -> Void in
             if #available(iOS 11, *) {
                 make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
+                make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(20)
             } else {
                 make.top.equalTo(view).offset(30)
+                make.left.equalTo(view).offset(20)
             }
-            make.left.equalTo(view).offset(20)
         }
         
         shareButton.isHidden = true
@@ -125,10 +126,12 @@ class STNMainViewController: UIViewController {
         aboutButton.snp.makeConstraints{ (make) -> Void in
             if #available(iOS 11, *) {
                 make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
+                make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
             } else {
                 make.top.equalTo(view).offset(30)
+                make.right.equalTo(view).offset(-20)
             }
-            make.right.equalTo(view).offset(-20)
+            
         }
         
         // view
