@@ -18,6 +18,7 @@ class STNAboutViewController: UIViewController {
     private let aboutLabel = UILabel()
     private let alternateThemeToggle = UISwitch()
     private let aleternateThemeLabel = UILabel()
+    private var aboutStackView = UIStackView()
 
     // MARK: - Lifecycle
     
@@ -25,6 +26,26 @@ class STNAboutViewController: UIViewController {
         super.viewDidLoad()
         
         configureViews()
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        if newCollection.verticalSizeClass == .compact {
+            aboutStackView.snp.updateConstraints { (make) -> Void in
+                if #available(iOS 11, *) {
+                    make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+                } else {
+                    make.top.equalTo(view).offset(20)
+                }
+            }
+        } else if self.traitCollection.verticalSizeClass == .compact && newCollection.verticalSizeClass != .compact {
+            aboutStackView.snp.updateConstraints { (make) -> Void in
+                if #available(iOS 11, *) {
+                    make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(80)
+                } else {
+                    make.top.equalTo(view).offset(96)
+                }
+            }
+        }
     }
     
     func configureViews() {
@@ -50,7 +71,7 @@ class STNAboutViewController: UIViewController {
         aboutLabel.defaultStlye(color: theme.text)
         aboutLabel.text = "It's simple. Sometimes you just need to send something off that will never be seen again. Send To Nowhere lets you write, send, and be done. Instead of writing something that everyone will see, write something no one will see."
         
-        let aboutStackView = UIStackView(arrangedSubviews: [stepStackView, aboutLabel])
+        aboutStackView = UIStackView(arrangedSubviews: [stepStackView, aboutLabel])
         aboutStackView.axis = .vertical
         aboutStackView.axis = .vertical
         aboutStackView.alignment = .center
@@ -62,11 +83,19 @@ class STNAboutViewController: UIViewController {
         
         aboutStackView.snp.makeConstraints { (make) -> Void in
             if #available(iOS 11, *) {
-                make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(80)
+                if traitCollection.verticalSizeClass == .compact {
+                    make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+                } else {
+                    make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(80)
+                }
                 make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(40)
                 make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-40)
             } else {
-                make.top.equalTo(view).offset(96)
+                if traitCollection.verticalSizeClass == .compact {
+                    make.top.equalTo(view).offset(20)
+                } else {
+                    make.top.equalTo(view).offset(96)
+                }
                 make.left.equalTo(view).offset(40)
                 make.right.equalTo(view).offset(-40)
             }
