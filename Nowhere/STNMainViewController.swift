@@ -33,12 +33,12 @@ class STNMainViewController: UIViewController {
     }
     
     private func setupKeyboardListeners() {
-        NotificationCenter.default.addObserver(self, selector: #selector(STNMainViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(STNMainViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(STNMainViewController.keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(STNMainViewController.keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if !keyboardIsUp {
                 textView.contentInset.bottom = keyboardSize.height + 10
                 textView.forceCentering(withKeyboardOffset: keyboardSize.height)
@@ -49,7 +49,7 @@ class STNMainViewController: UIViewController {
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        if (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue != nil {
+        if (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue != nil {
             if keyboardIsUp {
                 textView.contentInset.bottom = 120
                 textView.forceCentering(withKeyboardOffset: 0)
