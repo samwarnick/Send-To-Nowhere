@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class STNAboutViewController: UIViewController {
     
@@ -19,6 +20,7 @@ class STNAboutViewController: UIViewController {
     private let alternateThemeToggle = UISwitch()
     private let aleternateThemeLabel = UILabel()
     private var aboutStackView = UIStackView()
+    private var topConstraint: Constraint? = nil
 
     // MARK: - Lifecycle
     
@@ -30,20 +32,12 @@ class STNAboutViewController: UIViewController {
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         if newCollection.verticalSizeClass == .compact {
-            aboutStackView.snp.updateConstraints { (make) -> Void in
-                if #available(iOS 11, *) {
-                    make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-                } else {
-                    make.top.equalTo(view).offset(20)
-                }
-            }
-        } else if self.traitCollection.verticalSizeClass == .compact && newCollection.verticalSizeClass != .compact {
-            aboutStackView.snp.updateConstraints { (make) -> Void in
-                if #available(iOS 11, *) {
-                    make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(80)
-                } else {
-                    make.top.equalTo(view).offset(96)
-                }
+            self.topConstraint?.update(offset: 20)
+        } else if newCollection.verticalSizeClass != .compact && traitCollection.verticalSizeClass == .compact {
+            if #available(iOS 11, *) {
+                self.topConstraint?.update(offset: 80)
+            } else {
+                self.topConstraint?.update(offset: 96)
             }
         }
     }
@@ -83,18 +77,20 @@ class STNAboutViewController: UIViewController {
         
         aboutStackView.snp.makeConstraints { (make) -> Void in
             if #available(iOS 11, *) {
+                self.topConstraint = make.top.equalTo(view.safeAreaLayoutGuide.snp.top).constraint
                 if traitCollection.verticalSizeClass == .compact {
-                    make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+                    self.topConstraint?.update(offset: 20)
                 } else {
-                    make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(80)
+                    self.topConstraint?.update(offset: 80)
                 }
                 make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(40)
                 make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-40)
             } else {
+                self.topConstraint = make.top.equalTo(view).constraint
                 if traitCollection.verticalSizeClass == .compact {
-                    make.top.equalTo(view).offset(20)
+                    self.topConstraint?.update(offset: 20)
                 } else {
-                    make.top.equalTo(view).offset(96)
+                    self.topConstraint?.update(offset: 96)
                 }
                 make.left.equalTo(view).offset(40)
                 make.right.equalTo(view).offset(-40)
