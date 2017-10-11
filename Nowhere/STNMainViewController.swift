@@ -38,6 +38,10 @@ class STNMainViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(STNMainViewController.keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return AppState.sharedInstance.usingAlternateTheme ? .lightContent : .default
+    }
+    
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if !keyboardIsUp {
