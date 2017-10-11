@@ -14,4 +14,5 @@ struct STNTheme {
     let text: UIColor
     let placeholder: UIColor
     let other: UIColor
+    let icons: UIColor
 }

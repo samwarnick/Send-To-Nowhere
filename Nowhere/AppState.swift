@@ -18,14 +18,16 @@ class AppState {
         secondary: UIColor.stnRichElectricBlue,
         text: UIColor.black,
         placeholder: UIColor.lightGray,
-        other: UIColor.stnRichElectricBlue)
+        other: UIColor.stnRichElectricBlue,
+        icons: UIColor.stnColumbiaBlue)
     
     private let alternateTheme = STNTheme(
         primary: UIColor.stnRichElectricBlue,
         secondary: UIColor.white,
         text: UIColor.white,
-        placeholder: UIColor.stnColumbiaBlue,
-        other: UIColor.stnColumbiaBlue)
+        placeholder: UIColor.white,
+        other: UIColor.stnColumbiaBlue,
+        icons: UIColor.white)
     
     var currentTheme: STNTheme
     var usingAlternateTheme = false
