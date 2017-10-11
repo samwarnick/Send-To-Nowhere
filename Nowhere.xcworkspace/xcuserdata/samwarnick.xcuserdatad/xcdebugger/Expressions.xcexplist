@@ -3,23 +3,12 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "STNTextView.contentSize.didset:STNTextView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "bounds">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "STNAboutPageViewController.pageViewController(UIPageViewController, viewControllerBefore : UIViewController) -&gt; UIViewController?:STNAboutPageViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "orderedViewControllers.count">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "STNButton.draw(CGRect) -&gt; ():STNButton.swift">
       </ContextState>
       <ContextState
          contextName = "STNMainViewController.keyboardWillHide(notification : NSNotification) -&gt; ():STNMainViewController.swift">
@@ -43,6 +32,28 @@
          <PersistentStrings>
             <PersistentString
                value = "textView.contentInset.top">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "STNTextView.contentSize.didset:STNTextView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "bounds">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "STNButton.draw(CGRect) -&gt; ():STNButton.swift">
+      </ContextState>
+      <ContextState
+         contextName = "STNMainViewController.textViewDidChangeSelection(_:):STNMainViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "STNMainViewController.textView(_:shouldChangeTextIn:replacementText:):STNMainViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "textView.text">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

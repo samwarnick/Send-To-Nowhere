@@ -13,9 +13,10 @@ class STNMainViewController: UIViewController {
     // MARK: - Properties
     
     private let textView = STNTextView()
-    let sendButton = STNButton()
-    var shareButton = UIButton()
-    var currentMessage: String?
+    private let placeholder = UILabel()
+    private let sendButton = STNButton()
+    private var shareButton = UIButton()
+    private var currentMessage = ""
     private var keyboardIsUp = false
     private var theme = AppState.sharedInstance.currentTheme
     
@@ -83,6 +84,22 @@ class STNMainViewController: UIViewController {
         textView.returnKeyType = .done
         textView.contentInset.bottom = 120
         textView.backgroundColor = theme.primary
+        textView.textColor = theme.text
+        
+        // placeholder
+        
+        placeholder.text = "Type anything."
+        placeholder.font = UIFont.systemFont(ofSize: 36, weight: UIFont.Weight.thin)
+        placeholder.textAlignment = .center
+        placeholder.textColor = theme.placeholder
+        placeholder.sizeToFit()
+        
+        view.addSubview(placeholder)
+        
+        placeholder.snp.makeConstraints{ (make) -> Void in
+            make.centerY.equalTo(view)
+            make.centerX.equalTo(view)
+        }
         
         // buttons
         
@@ -99,7 +116,7 @@ class STNMainViewController: UIViewController {
         
         shareButton = UIButton(type: .system)
         shareButton.setImage(UIImage(named: "share"), for: .normal)
-        shareButton.tintColor = UIColor.stnColumbiaBlue
+        shareButton.tintColor = theme.icons
         shareButton.addTarget(self, action: #selector(STNMainViewController.didPressShareButton), for: .touchUpInside)
         
         view.addSubview(shareButton)
@@ -118,7 +135,7 @@ class STNMainViewController: UIViewController {
         
         let aboutButton = UIButton(type: .system)
         aboutButton.setImage(UIImage(named: "cog"), for: .normal)
-        aboutButton.tintColor = UIColor.stnColumbiaBlue
+        aboutButton.tintColor = theme.icons
         aboutButton.addTarget(self, action: #selector(STNMainViewController.didPressAboutButton), for: .touchUpInside)
         
         view.addSubview(aboutButton)
@@ -131,7 +148,6 @@ class STNMainViewController: UIViewController {
                 make.top.equalTo(view).offset(30)
                 make.right.equalTo(view).offset(-20)
             }
-            
         }
         
         // view
@@ -141,15 +157,14 @@ class STNMainViewController: UIViewController {
     }
     
     func resetTextView() {
-        textView.text = currentMessage != nil && currentMessage != "" ? currentMessage : "Type something."
-        textView.textColor = currentMessage != nil && currentMessage != "" ? theme.text : theme.placeholder
-        
-        textView.selectedTextRange = self.textView.textRange(from: self.textView.beginningOfDocument, to: self.textView.beginningOfDocument)
+        textView.text = currentMessage.isEmpty ? "" : currentMessage
         textView.canPerformActions = false
         
-        sendButton.isHidden = true
+        sendButton.isHidden = currentMessage.isEmpty
         shareButton.fadeTransition(duration: 0.25)
-        shareButton.isHidden = true
+        shareButton.isHidden = currentMessage.isEmpty
+        
+        currentMessage = currentMessage.isEmpty ? "" : currentMessage
     }
     
     // MARK: - Actions
@@ -165,6 +180,11 @@ class STNMainViewController: UIViewController {
         present(nextViewController, animated: true) {
             self.currentMessage = ""
             self.resetTextView()
+            
+            if self.placeholder.isHidden {
+                self.placeholder.fadeTransition(duration: 0.1)
+                self.placeholder.isHidden = false
+            }
         }
     }
     
@@ -176,11 +196,11 @@ class STNMainViewController: UIViewController {
     }
     
     @objc func didPressShareButton(sender: UIBarButtonItem) {
-        guard let text = currentMessage else {
+        guard currentMessage != "" else {
             return
         }
         
-        let textToShare = [ text ]
+        let textToShare = [ currentMessage ]
         let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = view
         
@@ -197,34 +217,39 @@ extension STNMainViewController: UITextViewDelegate {
             textView.resignFirstResponder()
             return false
         }
-        
-        let currentText = textView.text as NSString?
-        let updatedText = currentText?.replacingCharacters(in: range, with: text)
-        
-        if (updatedText?.isEmpty)! {
+
+        currentMessage = (textView.text as NSString).replacingCharacters(in: range, with: text)
+
+        if currentMessage.isEmpty {
             resetTextView()
-            
+
             return false
-        } else if textView.textColor == theme.placeholder && !text.isEmpty {
-            textView.text = nil
-            textView.textColor = theme.text
+        } else {
             (textView as! STNTextView).canPerformActions = true
-            
-            sendButton.isHidden = false
-            shareButton.fadeTransition(duration: 0.25)
-            shareButton.isHidden = false
+
+            if sendButton.isHidden {
+                sendButton.isHidden = false
+            }
+            if shareButton.isHidden {
+                shareButton.fadeTransition(duration: 0.25)
+                shareButton.isHidden = false
+            }
         }
-        
-        currentMessage = updatedText
-        
+
         return true
     }
+
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if !placeholder.isHidden {
+            placeholder.fadeTransition(duration: 0.1)
+            placeholder.isHidden = true
+        }
+    }
     
-    func textViewDidChangeSelection(_ textView: UITextView) {
-        if self.view.window != nil {
-            if textView.textColor == theme.placeholder {
-                textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
-            }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty && placeholder.isHidden {
+            placeholder.fadeTransition(duration: 0.1)
+            placeholder.isHidden = false
         }
     }
 }
