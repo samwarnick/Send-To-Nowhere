@@ -79,21 +79,35 @@ class STNAboutViewController: UIViewController {
             if #available(iOS 11, *) {
                 self.topConstraint = make.top.equalTo(view.safeAreaLayoutGuide.snp.top).constraint
                 if traitCollection.verticalSizeClass == .compact {
-                    self.topConstraint?.update(offset: 20)
+                    if traitCollection.horizontalSizeClass == .regular {
+                        self.topConstraint?.update(offset: 180)
+                    } else {
+                        self.topConstraint?.update(offset: 20)
+                    }
                 } else {
                     self.topConstraint?.update(offset: 80)
                 }
-                make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(40)
-                make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-40)
+                if traitCollection.horizontalSizeClass == .regular {
+                    make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(140)
+                    make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-140)
+                } else {
+                    make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(40)
+                    make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-40)
+                }
             } else {
                 self.topConstraint = make.top.equalTo(view).constraint
                 if traitCollection.verticalSizeClass == .compact {
                     self.topConstraint?.update(offset: 20)
                 } else {
-                    self.topConstraint?.update(offset: 96)
+                    self.topConstraint?.update(offset: 196)
                 }
-                make.left.equalTo(view).offset(40)
-                make.right.equalTo(view).offset(-40)
+                if traitCollection.horizontalSizeClass == .regular {
+                    make.left.equalTo(view).offset(140)
+                    make.right.equalTo(view).offset(-140)
+                } else {
+                    make.left.equalTo(view).offset(40)
+                    make.right.equalTo(view).offset(-40)
+                }
             }
         }
         
@@ -116,13 +130,31 @@ class STNAboutViewController: UIViewController {
         
         alternateThemeStack.snp.makeConstraints { (make) -> Void in
             if #available(iOS 11, *) {
-                make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-60)
-                make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(40)
-                make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-40)
+                if traitCollection.verticalSizeClass == .regular && traitCollection.horizontalSizeClass == .regular {
+                    make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-160)
+                } else {
+                    make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-60)
+                }
+                if traitCollection.horizontalSizeClass == .regular {
+                    make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(140)
+                    make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-140)
+                } else {
+                    make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(40)
+                    make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-40)
+                }
             } else {
-                make.top.equalTo(view).offset(-80)
-                make.left.equalTo(view).offset(40)
-                make.right.equalTo(view).offset(-40)
+                if traitCollection.verticalSizeClass == .regular && traitCollection.horizontalSizeClass == .regular {
+                    make.bottom.equalTo(view).offset(-180)
+                } else {
+                    make.bottom.equalTo(view).offset(-80)
+                }
+                if traitCollection.horizontalSizeClass == .regular {
+                    make.left.equalTo(view).offset(140)
+                    make.right.equalTo(view).offset(-140)
+                } else {
+                    make.left.equalTo(view).offset(40)
+                    make.right.equalTo(view).offset(-40)
+                }
             }
         }
         

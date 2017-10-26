@@ -36,13 +36,8 @@ class STNCreditsViewController: UIViewController {
         twitterButton.setTitle("@samwarnick", for: .normal)
         twitterButton.addTarget(self, action: #selector(STNCreditsViewController.didPressTwitterButton), for: .touchUpInside)
         twitterButton.sizeToFit()
-        
-        let contactLabel = UILabel()
-        contactLabel.defaultStlye(color: theme.text)
-        contactLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.thin)
-        contactLabel.text = "Please get in touch on Twitter or my website with any feedback"
 
-        let myDetailsStackView = UIStackView(arrangedSubviews: [authorLabel, websiteButton, twitterButton, contactLabel])
+        let myDetailsStackView = UIStackView(arrangedSubviews: [authorLabel, websiteButton, twitterButton])
         myDetailsStackView.axis = .vertical
         myDetailsStackView.alignment = .center
         myDetailsStackView.distribution = .equalSpacing

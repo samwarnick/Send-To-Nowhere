@@ -26,7 +26,7 @@ class AppState {
         secondary: UIColor.white,
         text: UIColor.white,
         placeholder: UIColor.white,
-        other: UIColor.stnColumbiaBlue,
+        other: UIColor.stnDarkImperialBlue,
         icons: UIColor.white)
     
     var currentTheme: STNTheme

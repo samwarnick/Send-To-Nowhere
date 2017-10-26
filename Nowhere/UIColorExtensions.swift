@@ -20,4 +20,8 @@ extension UIColor {
     class var stnColumbiaBlue: UIColor {
         return UIColor(red: 197.0 / 255.0, green: 213.0 / 255.0, blue: 234.0 / 255.0, alpha: 1.0)
     }
+    
+    class var stnDarkImperialBlue: UIColor {
+        return UIColor(red: 1.0 / 255.0, green: 62.0 / 255.0, blue: 119.0 / 255.0, alpha: 1.0)
+    }
 }

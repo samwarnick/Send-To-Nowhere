@@ -19,8 +19,7 @@
 		4B2DD8B21E95D8AD00CCB12F /* NowhereTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DD8B11E95D8AD00CCB12F /* NowhereTests.swift */; };
 		4B2DD8BD1E95D8AD00CCB12F /* NowhereUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2DD8BC1E95D8AD00CCB12F /* NowhereUITests.swift */; };
 		4B2E82411F7A9D4600230922 /* Pods_Nowhere.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B2E82421F7A9D4600230922 /* Pods_Nowhere.framework */; };
-		4B2E82461F7A9E8700230922 /* alt_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B2E82441F7A9E8700230922 /* alt_icon@2x.png */; };
-		4B2E82471F7A9E8700230922 /* alt_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B2E82451F7A9E8700230922 /* alt_icon@3x.png */; };
+		4B92A7951FA01EA400D13573 /* alt_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B92A7941FA01EA400D13573 /* alt_icon@3x.png */; };
 		4B94E12D1F79F2A600BF389B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B94E12C1F79F2A600BF389B /* Assets.xcassets */; };
 		4BE962791E97E735002C4D2C /* STNAboutPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE962781E97E735002C4D2C /* STNAboutPageViewController.swift */; };
 		4BE9627B1E97F2C1002C4D2C /* UILabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE9627A1E97F2C1002C4D2C /* UILabelExtensions.swift */; };
@@ -29,6 +28,8 @@
 		4BE962811E9962F8002C4D2C /* STNCreditsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE962801E9962F8002C4D2C /* STNCreditsViewController.swift */; };
 		4BFA245C1F7A016200355D3D /* STNTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFA245B1F7A016200355D3D /* STNTheme.swift */; };
 		4BFA245E1F7A029700355D3D /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFA245D1F7A029700355D3D /* AppState.swift */; };
+		4BFD4C241FA02134000A3D3C /* alt_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BFD4C231FA02133000A3D3C /* alt_icon@2x.png */; };
+		4BFD4C261FA023F3000A3D3C /* alt_icon_ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BFD4C251FA023F3000A3D3C /* alt_icon_ipad@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,9 +69,8 @@
 		4B2DD8BC1E95D8AD00CCB12F /* NowhereUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowhereUITests.swift; sourceTree = "<group>"; };
 		4B2DD8BE1E95D8AD00CCB12F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B2E82421F7A9D4600230922 /* Pods_Nowhere.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Nowhere.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4B2E82441F7A9E8700230922 /* alt_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alt_icon@2x.png"; path = "Nowhere/resources/alt_icon@2x.png"; sourceTree = SOURCE_ROOT; };
-		4B2E82451F7A9E8700230922 /* alt_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "alt_icon@3x.png"; path = "Nowhere/resources/alt_icon@3x.png"; sourceTree = SOURCE_ROOT; };
 		4B4B23A51F7A9B8700DAF74B /* Pods_Nowhere.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Nowhere.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B92A7941FA01EA400D13573 /* alt_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alt_icon@3x.png"; sourceTree = "<group>"; };
 		4B94E12C1F79F2A600BF389B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BE962781E97E735002C4D2C /* STNAboutPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STNAboutPageViewController.swift; sourceTree = "<group>"; };
 		4BE9627A1E97F2C1002C4D2C /* UILabelExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelExtensions.swift; sourceTree = "<group>"; };
@@ -79,6 +79,8 @@
 		4BE962801E9962F8002C4D2C /* STNCreditsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STNCreditsViewController.swift; sourceTree = "<group>"; };
 		4BFA245B1F7A016200355D3D /* STNTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STNTheme.swift; sourceTree = "<group>"; };
 		4BFA245D1F7A029700355D3D /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		4BFD4C231FA02133000A3D3C /* alt_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alt_icon@2x.png"; sourceTree = "<group>"; };
+		4BFD4C251FA023F3000A3D3C /* alt_icon_ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alt_icon_ipad@2x.png"; sourceTree = "<group>"; };
 		6D26CA012A8667696FB95C73 /* Pods-Nowhere.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nowhere.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nowhere/Pods-Nowhere.release.xcconfig"; sourceTree = "<group>"; };
 		A2AD1A09E185984BF7447BB7 /* Pods_NowhereTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NowhereTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC00BB128FB100F462CCF6B4 /* Pods_NowhereUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NowhereUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -195,8 +197,9 @@
 		4B2E82431F7A9E5D00230922 /* icons */ = {
 			isa = PBXGroup;
 			children = (
-				4B2E82441F7A9E8700230922 /* alt_icon@2x.png */,
-				4B2E82451F7A9E8700230922 /* alt_icon@3x.png */,
+				4BFD4C231FA02133000A3D3C /* alt_icon@2x.png */,
+				4B92A7941FA01EA400D13573 /* alt_icon@3x.png */,
+				4BFD4C251FA023F3000A3D3C /* alt_icon_ipad@2x.png */,
 			);
 			name = icons;
 			path = "New Group";
@@ -325,10 +328,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B2E82461F7A9E8700230922 /* alt_icon@2x.png in Resources */,
 				4B94E12D1F79F2A600BF389B /* Assets.xcassets in Resources */,
-				4B2E82471F7A9E8700230922 /* alt_icon@3x.png in Resources */,
+				4B92A7951FA01EA400D13573 /* alt_icon@3x.png in Resources */,
+				4BFD4C241FA02134000A3D3C /* alt_icon@2x.png in Resources */,
 				4B2DD8A71E95D8AD00CCB12F /* LaunchScreen.storyboard in Resources */,
+				4BFD4C261FA023F3000A3D3C /* alt_icon_ipad@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
