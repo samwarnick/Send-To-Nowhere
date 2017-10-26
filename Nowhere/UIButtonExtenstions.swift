@@ -9,9 +9,9 @@
 import UIKit
 
 extension UIButton {
-    func defaultStlye() {
+    func defaultStlye(color: UIColor) {
         titleLabel?.textAlignment = .center
-        titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightThin)
-        tintColor = UIColor.stnRichElectricBlue
+        titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.thin)
+        tintColor = color
     }
 }

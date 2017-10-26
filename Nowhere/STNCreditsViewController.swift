@@ -19,28 +19,25 @@ class STNCreditsViewController: UIViewController {
     }
     
     func configureViews() {
+        let theme = AppState.sharedInstance.currentTheme
+        
         let authorLabel = UILabel()
-        authorLabel.defaultStlye()
+        authorLabel.defaultStlye(color: theme.text)
         authorLabel.text = "Created by Sam Warnick"
 
         let websiteButton = UIButton(type: .system)
-        websiteButton.defaultStlye()
+        websiteButton.defaultStlye(color: theme.other)
         websiteButton.setTitle("samwarnick.com", for: .normal)
         websiteButton.addTarget(self, action: #selector(STNCreditsViewController.didPressWebisteButton), for: .touchUpInside)
         websiteButton.sizeToFit()
 
         let twitterButton = UIButton(type: .system)
-        twitterButton.defaultStlye()
+        twitterButton.defaultStlye(color: theme.other)
         twitterButton.setTitle("@samwarnick", for: .normal)
         twitterButton.addTarget(self, action: #selector(STNCreditsViewController.didPressTwitterButton), for: .touchUpInside)
         twitterButton.sizeToFit()
-        
-        let contactLabel = UILabel()
-        contactLabel.defaultStlye()
-        contactLabel.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightThin)
-        contactLabel.text = "Please get in touch on Twitter or my website with any feedback"
 
-        let myDetailsStackView = UIStackView(arrangedSubviews: [authorLabel, websiteButton, twitterButton, contactLabel])
+        let myDetailsStackView = UIStackView(arrangedSubviews: [authorLabel, websiteButton, twitterButton])
         myDetailsStackView.axis = .vertical
         myDetailsStackView.alignment = .center
         myDetailsStackView.distribution = .equalSpacing
@@ -55,16 +52,16 @@ class STNCreditsViewController: UIViewController {
             make.right.equalTo(view).offset(-40)
         }
         
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = theme.primary
     }
     
     // MARK: - Actions
     
-    func didPressWebisteButton(sender: UIButton) {
-        UIApplication.shared.open(URL(string: "https://samwarnick.com/tag/send-to-nowhere/")!, options: [UIApplicationOpenURLOptionUniversalLinksOnly: false], completionHandler: nil)
+    @objc func didPressWebisteButton(sender: UIButton) {
+        UIApplication.shared.open(URL(string: "https://samwarnick.com")!, options: [UIApplicationOpenURLOptionUniversalLinksOnly: false], completionHandler: nil)
     }
     
-    func didPressTwitterButton(sender: UIButton) {
+    @objc func didPressTwitterButton(sender: UIButton) {
         UIApplication.shared.open(URL(string: "https://twitter.com/samwarnick")!, options: [UIApplicationOpenURLOptionUniversalLinksOnly: false], completionHandler: nil)
     }
 

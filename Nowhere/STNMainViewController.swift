@@ -13,8 +13,12 @@ class STNMainViewController: UIViewController {
     // MARK: - Properties
     
     private let textView = STNTextView()
-    let sendButton = STNButton()
+    private let placeholder = UILabel()
+    private let sendButton = STNButton()
+    private var shareButton = UIButton()
+    private var currentMessage = ""
     private var keyboardIsUp = false
+    private var theme = AppState.sharedInstance.currentTheme
     
     // MARK: - Lifecycle
     
@@ -30,12 +34,16 @@ class STNMainViewController: UIViewController {
     }
     
     private func setupKeyboardListeners() {
-        NotificationCenter.default.addObserver(self, selector: #selector(STNMainViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(STNMainViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(STNMainViewController.keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(STNMainViewController.keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
     
-    func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return AppState.sharedInstance.usingAlternateTheme ? .lightContent : .default
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if !keyboardIsUp {
                 textView.contentInset.bottom = keyboardSize.height + 10
                 textView.forceCentering(withKeyboardOffset: keyboardSize.height)
@@ -45,8 +53,8 @@ class STNMainViewController: UIViewController {
         }
     }
     
-    func keyboardWillHide(notification: NSNotification) {
-        if (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue != nil {
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue != nil {
             if keyboardIsUp {
                 textView.contentInset.bottom = 120
                 textView.forceCentering(withKeyboardOffset: 0)
@@ -56,7 +64,9 @@ class STNMainViewController: UIViewController {
         }
     }
     
-    private func configureViews() {
+    func configureViews() {
+        
+        theme = AppState.sharedInstance.currentTheme
         
         // text view
         view.addSubview(textView)
@@ -70,13 +80,30 @@ class STNMainViewController: UIViewController {
             make.right.equalTo(view).offset(-20)
         }
         
-        textView.font = UIFont.systemFont(ofSize: 36, weight: UIFontWeightThin)
+        textView.font = UIFont.systemFont(ofSize: 36, weight: UIFont.Weight.thin)
         textView.keyboardDismissMode = .interactive
         textView.textAlignment = .center
         textView.showsVerticalScrollIndicator = false
-        textView.tintColor = UIColor.stnRichElectricBlue
+        textView.tintColor = theme.secondary
         textView.returnKeyType = .done
         textView.contentInset.bottom = 120
+        textView.backgroundColor = theme.primary
+        textView.textColor = theme.text
+        
+        // placeholder
+        
+        placeholder.text = "Type anything."
+        placeholder.font = UIFont.systemFont(ofSize: 36, weight: UIFont.Weight.thin)
+        placeholder.textAlignment = .center
+        placeholder.textColor = theme.placeholder
+        placeholder.sizeToFit()
+        
+        view.addSubview(placeholder)
+        
+        placeholder.snp.makeConstraints{ (make) -> Void in
+            make.centerY.equalTo(view)
+            make.centerX.equalTo(view)
+        }
         
         // buttons
         
@@ -91,39 +118,57 @@ class STNMainViewController: UIViewController {
             make.bottom.equalTo(view).offset(-60)
         }
         
-        let aboutButton = UIButton(type: .infoLight)
-        aboutButton.tintColor = UIColor.stnColumbiaBlue
+        shareButton = UIButton(type: .system)
+        shareButton.setImage(UIImage(named: "share"), for: .normal)
+        shareButton.tintColor = theme.icons
+        shareButton.addTarget(self, action: #selector(STNMainViewController.didPressShareButton), for: .touchUpInside)
+        
+        view.addSubview(shareButton)
+        
+        shareButton.snp.makeConstraints{ (make) -> Void in
+            if #available(iOS 11, *) {
+                make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
+                make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(20)
+            } else {
+                make.top.equalTo(view).offset(30)
+                make.left.equalTo(view).offset(20)
+            }
+        }
+        
+        shareButton.isHidden = true
+        
+        let aboutButton = UIButton(type: .system)
+        aboutButton.setImage(UIImage(named: "cog"), for: .normal)
+        aboutButton.tintColor = theme.icons
         aboutButton.addTarget(self, action: #selector(STNMainViewController.didPressAboutButton), for: .touchUpInside)
         
         view.addSubview(aboutButton)
         
         aboutButton.snp.makeConstraints{ (make) -> Void in
-            make.top.equalTo(view).offset(30)
-            make.right.equalTo(view).offset(-15)
+            if #available(iOS 11, *) {
+                make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
+                make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-20)
+            } else {
+                make.top.equalTo(view).offset(30)
+                make.right.equalTo(view).offset(-20)
+            }
         }
-        
-        // status bar background
-        
-        let statusBarBackground = UIView()
-        statusBarBackground.frame = UIApplication.shared.statusBarFrame
-        statusBarBackground.backgroundColor = UIColor.white
-        
-        view.addSubview(statusBarBackground)
         
         // view
         
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = theme.primary
         resetTextView()
     }
     
     func resetTextView() {
-        textView.text = "Type something."
-        textView.textColor = UIColor.lightGray
-        
-        textView.selectedTextRange = self.textView.textRange(from: self.textView.beginningOfDocument, to: self.textView.beginningOfDocument)
+        textView.text = currentMessage.isEmpty ? "" : currentMessage
         textView.canPerformActions = false
         
-        sendButton.isHidden = true
+        sendButton.isHidden = currentMessage.isEmpty
+        shareButton.fadeTransition(duration: 0.25)
+        shareButton.isHidden = currentMessage.isEmpty
+        
+        currentMessage = currentMessage.isEmpty ? "" : currentMessage
     }
     
     // MARK: - Actions
@@ -132,20 +177,40 @@ class STNMainViewController: UIViewController {
         textView.endEditing(true)
     }
     
-    func didPressSendToNowhereButton(sender: UIButton) {
+    @objc func didPressSendToNowhereButton(sender: UIButton) {
         let nextViewController = STNSendingViewController()
         nextViewController.modalPresentationStyle = .custom
         nextViewController.modalTransitionStyle = .crossDissolve
-        present(nextViewController, animated: true, completion: { _ in
+        present(nextViewController, animated: true) {
+            self.currentMessage = ""
             self.resetTextView()
-        })
+            
+            if self.placeholder.isHidden {
+                self.placeholder.fadeTransition(duration: 0.1)
+                self.placeholder.isHidden = false
+            }
+        }
     }
     
-    func didPressAboutButton(sender: UIButton) {
+    @objc func didPressAboutButton(sender: UIButton) {
         let nextViewController = STNAboutPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         nextViewController.modalPresentationStyle = .custom
         nextViewController.modalTransitionStyle = .crossDissolve
         present(nextViewController, animated: true, completion: nil)
+    }
+    
+    @objc func didPressShareButton(sender: UIBarButtonItem) {
+        guard currentMessage != "" else {
+            return
+        }
+        
+        let textToShare = [ currentMessage ]
+        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = view
+        
+        activityViewController.excludedActivityTypes = [ UIActivityType.airDrop, UIActivityType.postToFacebook ]
+        
+        present(activityViewController, animated: true, completion: nil)
     }
 
 }
@@ -156,30 +221,39 @@ extension STNMainViewController: UITextViewDelegate {
             textView.resignFirstResponder()
             return false
         }
-        
-        let currentText = textView.text as NSString?
-        let updatedText = currentText?.replacingCharacters(in: range, with: text)
-        
-        if (updatedText?.isEmpty)! {
+
+        currentMessage = (textView.text as NSString).replacingCharacters(in: range, with: text)
+
+        if currentMessage.isEmpty {
             resetTextView()
-            
+
             return false
-        } else if textView.textColor == UIColor.lightGray && !text.isEmpty {
-            textView.text = nil
-            textView.textColor = UIColor.black
+        } else {
             (textView as! STNTextView).canPerformActions = true
-            
-            sendButton.isHidden = false
+
+            if sendButton.isHidden {
+                sendButton.isHidden = false
+            }
+            if shareButton.isHidden {
+                shareButton.fadeTransition(duration: 0.25)
+                shareButton.isHidden = false
+            }
         }
-        
+
         return true
     }
+
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if !placeholder.isHidden {
+            placeholder.fadeTransition(duration: 0.1)
+            placeholder.isHidden = true
+        }
+    }
     
-    func textViewDidChangeSelection(_ textView: UITextView) {
-        if self.view.window != nil {
-            if textView.textColor == UIColor.lightGray {
-                textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
-            }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty && placeholder.isHidden {
+            placeholder.fadeTransition(duration: 0.1)
+            placeholder.isHidden = false
         }
     }
 }

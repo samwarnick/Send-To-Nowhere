@@ -9,16 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-NowhereTests.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-NowhereUITests.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>SnapKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -26,27 +16,6 @@
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>1AEAB775F07809583CC6407C32440839</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>792CF3DD744A224CBB7D0EE44FDFAB0B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A85124752ABED8EE10D8680A6E910E1D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DEEA2E48B707D59F09D1E5DB49A13552</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-	</dict>
+	<dict/>
 </dict>
 </plist>
